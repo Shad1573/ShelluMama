@@ -13,13 +13,13 @@
 ## Building the Shell
 
 ```bash
-gcc -o myshell myshell.c
+gcc -o shell shell.c
 ```
 
 ## Running the Shell
 
 ```bash
-./myshell
+./shell
 ```
 
 ## Feature Testing Guide
