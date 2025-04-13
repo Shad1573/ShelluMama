@@ -58,7 +58,7 @@ void display_prompt();
  */
 void read_input(char *input);
 
-/**Author : 
+/**Author : @shadmansalif
  * Parses input string into multiple commands separated by semicolons
  * - Splits input by ';' character
  * - Returns array of command strings
@@ -66,7 +66,7 @@ void read_input(char *input);
  */
 int parse_input(char *input, char *commands[]);
 
-/**Author : 
+/**Author : @shadmansalif
  * Executes a command line that may contain logical operators (&&)
  * - Splits command by '&&' operator
  * - Executes commands sequentially
@@ -74,7 +74,7 @@ int parse_input(char *input, char *commands[]);
  */
 int execute_command_line(char *command_line);
 
-/**Author : 
+/**Author : @shadmansalif
  * Executes a command that may contain pipes (|)
  * - Splits command by '|' character
  * - Creates pipes between commands
@@ -112,14 +112,14 @@ void handle_signal(int signo);
  */
 void add_to_history(const char *command);
 
-/**Author : 
+/**Author : @shadmansalif
  * Displays the command history
  * - Shows numbered list of previous commands
  * - Displays up to MAX_HISTORY commands
  */
 void show_history();
 
-/**Author : 
+/**Author : @shadmansalif
  * Cleans up shell resources before exit
  * - Currently a placeholder for future resource cleanup
  */
