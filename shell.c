@@ -31,25 +31,114 @@ typedef struct {
     int count;
 } History;
 
-History command_history = {{0}, 0};
-
 // Global variables for signal handling
+History command_history = {{0}, 0};
 pid_t current_child_pid = -1;
 
-// Function prototypes
+/** Author : @sudipta
+ * Initializes the shell environment
+ * - Sets up signal handlers for SIGINT (Ctrl+C) and SIGTERM
+ * - Initializes command history
+ * - Clears the screen and displays welcome message
+ */
 void initialize_shell();
+
+/**Author : @sudipta
+ * Displays the shell prompt with current working directory
+ * - Shows current directory path in green color
+ * - Falls back to simple "sh>" if directory path cannot be obtained
+ */
 void display_prompt();
+
+/**Author : @sudipta
+ * Reads user input from stdin
+ * - Handles EOF (Ctrl+D) by exiting the shell
+ * - Removes trailing newline character
+ * - Handles input errors gracefully
+ */
 void read_input(char *input);
+
+/**Author : 
+ * Parses input string into multiple commands separated by semicolons
+ * - Splits input by ';' character
+ * - Returns array of command strings
+ * - Returns number of commands found
+ */
 int parse_input(char *input, char *commands[]);
+
+/**Author : 
+ * Executes a command line that may contain logical operators (&&)
+ * - Splits command by '&&' operator
+ * - Executes commands sequentially
+ * - Stops execution if any command fails
+ */
 int execute_command_line(char *command_line);
+
+/**Author : 
+ * Executes a command that may contain pipes (|)
+ * - Splits command by '|' character
+ * - Creates pipes between commands
+ * - Manages file descriptors for pipe connections
+ */
 int execute_piped_commands(char *command);
+
+/**Author : @sudipta
+ * Executes a single command with optional I/O redirection
+ * - Handles input/output file descriptors
+ * - Manages I/O redirection
+ * - Forks and executes the command
+ */
 int execute_single_command(char *command, int in_fd, int out_fd);
+
+/**Author : @sudipta
+ * Parses a command string into arguments and redirection information
+ * - Splits command into tokens
+ * - Identifies input/output redirection operators
+ * - Handles append mode for output redirection
+ */
 void parse_command(char *command, char *args[], char **input_file, char **output_file, int *append_output);
+
+/**Author : 
+ * Handles shell signals (Ctrl+C)
+ * - Terminates current child process if one exists
+ * - Displays new prompt if no child process is running
+ */
 void handle_signal(int signo);
+
+/**Author : 
+ * Adds a command to the history buffer
+ * - Maintains a circular buffer of commands
+ * - Shifts old commands when buffer is full
+ */
 void add_to_history(const char *command);
+
+/**Author : 
+ * Displays the command history
+ * - Shows numbered list of previous commands
+ * - Displays up to MAX_HISTORY commands
+ */
 void show_history();
+
+/**Author : 
+ * Cleans up shell resources before exit
+ * - Currently a placeholder for future resource cleanup
+ */
 void cleanup_resources();
+
+/**Author : 
+ * Checks if a command is a built-in shell command
+ * - Handles 'exit' command
+ * - Handles 'cd' command with home directory support
+ * - Handles 'history' command
+ */
 int check_builtin_commands(char *args[]);
+
+/**Author : @sudipta
+ * Handles I/O redirection for a command
+ * - Opens input file for reading if specified
+ * - Opens output file for writing/append if specified
+ * - Manages file descriptor duplication
+ */
 void handle_redirection(char *input_file, char *output_file, int append_output);
 
 int main() {
